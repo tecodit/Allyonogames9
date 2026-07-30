@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllYonoGames9 | Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-icon">ALL<br>YONO</div>
+            <div class="logo-text">
+                AllYonoGames9
+                <div class="logo-url">allyonogames9.blogspot.com</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="YOUR_TELEGRAM_LINK_HERE" class="btn-telegram">
+                <i class="fab fa-telegram-plane"></i> Join
+            </a>
+            <i class="fas fa-moon theme-toggle-icon" id="theme-toggle"></i>
+        </div>
+    </header>
+
+    <a href="YOUR_BANNER_REDIRECT_LINK_HERE" class="banner-link">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghJLJUsjv182aEbdMeRHGUw1TBMJUI_r1XalOOVv6qH2vE0evweSxx95WbJYImOXrjZauQt4NZyc7mV7fwe4XclAudhYuCcZV8f8CXRgYInCL23h9mRIUMFPY6EgnesdtVmKMeeIXUIH1zR48LdnlYVhUhtz6lMh9g7dgOgjTvj1AMSKoKjjVdhyrvys3N/s3264/20260717_123432.png" alt="Banner" class="banner-img">
+    </a>
+
+    <!-- Top 3 Component Load Hoga Yahan -->
+    <div id="top3-container"></div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="loadTab('all-games.html', this)">All Games</button>
+        <button class="tab" onclick="loadTab('new-game.html', this)">New Games</button>
+        <button class="tab" onclick="loadTab('apps.html', this)">Other Apps</button>
+    </div>
+
+    <!-- Games/Apps ki list Yahan Load Hogi -->
+    <div id="main-content"></div>
+
+    <!-- Footer Component Load Hoga Yahan -->
+    <div id="footer-container"></div>
+
+    <script>
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggleBtn.classList.toggle('fa-moon');
+            themeToggleBtn.classList.toggle('fa-sun');
+        });
+
+        // HTML Components Load Karne ka Function
+        async function loadHTML(elementId, filename) {
+            try {
+                const response = await fetch(filename);
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error('Error loading ' + filename);
+                document.getElementById(elementId).innerHTML = "<p style='text-align:center; padding: 20px;'>File Not Found. Please run on a local server (like Live Server in VS Code) for files to connect.</p>";
+            }
+        }
+
+        // Tabs change karne ka function
+        function loadTab(filename, btnElement) {
+            document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+            loadHTML('main-content', filename);
+        }
+
+        // Page load hote hi Top 3, Default tab aur footer load karo
+        window.onload = () => {
+            loadHTML('top3-container', 'top3.html');
+            loadHTML('main-content', 'all-games.html'); // Default tab
+            loadHTML('footer-container', 'footer.html');
+        };
+    </script>
+</body>
+</html>
